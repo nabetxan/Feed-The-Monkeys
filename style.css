@@ -1,0 +1,12 @@
+:root {
+    --get-row: 16;
+}
+
+#container {
+    width: 600px;
+    height: 600px;
+    border-style: solid;
+    border-color: black;
+    display: grid;
+    grid-template-columns: repeat(var(--get-row), 1fr);
+}

@@ -1,10 +1,11 @@
 // document.addEventListener("DOMContentLoaded", function(event) {
-const rowSetting = 2;
+const rowSetting = 5;
 const container = document.getElementById("container");
 
 function createDiv() {
   //   console.log("test");
-  for (i = 1; i <= rowSetting * 2; i++) {
+  container.style.setProperty("--get-row", rowSetting);
+  for (i = 1; i <= rowSetting * rowSetting; i++) {
     const div = document.createElement("div");
     div.textContent = "🐒";
     container.appendChild(div);
