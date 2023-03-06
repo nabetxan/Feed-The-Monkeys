@@ -12,12 +12,10 @@
 }
 
 #container {
-    width: 600px;
-    height: 600px;
+    width: 960px;
+    height: 960px;
     border-style: solid;
     border-color: black;
     display: grid;
     grid-template-columns: repeat(var(--get-row), 1fr);
-
-
 }
