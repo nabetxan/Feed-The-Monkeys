@@ -1,4 +1,4 @@
-let rowSetting = 5;
+let rowSetting = 1;
 const container = document.getElementById("container");
 
 // input要素
