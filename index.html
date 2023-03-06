@@ -5,21 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Etch A Sketch</title>
   </head>
   <body>
-    <button id="buttonToCreateDivs">Set Level</button>
+    <div><h1>🌴Feed the Monkeys🌴</h1></div>
+    <div>
+      <p>In this island, there are a lot of hungry monkeys.</p>
+      <p>
+        Set the level and let's see how many monkeys you can feed in 10 seconds.
+      </p>
+    </div>
+
+    <div>
+      <button id="buttonToCreateDivs">Set Level and Count down starts</button>
+    </div>
     <div>
       3<input
         type="range"
         id="divCountScale"
         min="3"
-        max="30"
+        max="20"
         step="1"
         value="3"
-      />30
+      />20
     </div>
     <div id="divCountDisplay"></div>
+
+    <div>
+      <div>🍌</div>
+      <div id="total-bananas">5</div>
+      <div>
+        （残りあと
+        <div id="how-many-left">4</div>
+        匹）
+      </div>
+      <div>/</div>
+      <div>🐵</div>
+      <div id="total-monkeys">9</div>
+    </div>
+    <div>Time:</div>
+    <div id="timeLeft"></div>
+
     <div id="container"></div>
     <script src="eas.js"></script>
   </body>

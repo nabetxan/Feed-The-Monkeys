@@ -1,4 +1,5 @@
 let rowSetting = 1;
+let isMousDown = false;
 const container = document.getElementById("container");
 
 // input要素
@@ -36,6 +37,30 @@ function createDiv() {
     div.textContent = "🐒";
     container.appendChild(div);
   }
+
+  // Add event listeners to .canvas elements
+  const canvasDiv = document.querySelectorAll(".canvas");
+  canvasDiv.forEach((div) => {
+    div.addEventListener("mousedown", () => {
+      isMousDown = true;
+      if (isMousDown === true && div.textContent === "🐒") {
+        div.textContent = "🍌🐒";
+      } else if (isMousDown === true && div.textContent === "🍌🐒") {
+        div.textContent = "🐒";
+      }
+    });
+    div.addEventListener("mouseenter", () => {
+      if (isMousDown === true && div.textContent === "🐒") {
+        div.textContent = "🍌🐒";
+      } else if (isMousDown === true && div.textContent === "🍌🐒") {
+        div.textContent = "🐒";
+      }
+    });
+
+    div.addEventListener("mouseup", () => {
+      isMousDown = false;
+    });
+  });
 }
 
 const button = document.getElementById("buttonToCreateDivs");

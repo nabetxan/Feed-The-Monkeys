@@ -2,6 +2,10 @@
     --get-row: 50;
 }
 
+body {
+    font-family: 'Lilita One', cursive;
+}
+
 #container div:hover{
     background-color: yellow;
 }
@@ -15,6 +19,7 @@
 }
 
 #container {
+    user-select: none;
     width: 700px;
     height: 700px;
     border-style: solid;
