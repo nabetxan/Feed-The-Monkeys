@@ -4,6 +4,22 @@
 
 body {
     font-family: 'Lilita One', cursive;
+    background-color:rgb(246, 255, 164);
+}
+
+#buttonToCreateDivs{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Lilita One', cursive;
+    color: rgb(3, 60, 11);
+    font-size: larger;
+    background-color:beige;
+}
+
+#buttonToCreateDivs:hover{
+    background-color: yellow;
+    border: 1px solid red;
 }
 
 #container div:hover{
@@ -26,4 +42,17 @@ body {
     border-color: black;
     display: grid;
     grid-template-columns: repeat(var(--get-row), 1fr);
+}
+
+.yokonarabi{
+    display: flex;
+}
+
+.category{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.add-margin-left{
+    margin-left: 30px;
 }

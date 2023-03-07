@@ -24,36 +24,56 @@
     </div>
 
     <div>
-      <button id="buttonToCreateDivs">Set Level and Count down starts</button>
+      <button id="buttonToCreateDivs">Set Level and Count Down starts</button>
     </div>
-    <div>
-      3<input
-        type="range"
-        id="divCountScale"
-        min="3"
-        max="20"
-        step="1"
-        value="3"
-      />20
-    </div>
-    <div id="divCountDisplay"></div>
-
-    <div>
-      <div>🍌</div>
-      <div id="total-bananas">5</div>
-      <div>
-        （残りあと
-        <div id="how-many-left">4</div>
-        匹）
+    <!-- この中で横に並べる -->
+    <div class="yokonarabi category">
+      <div>Level:</div>
+      <div id="divCountDisplay" class="add-margin-left"></div>
+      <div class="yokonarabi add-margin-left">
+        [ 3<input
+          type="range"
+          id="divCountScale"
+          min="3"
+          max="20"
+          step="1"
+          value="3"
+        />
+        20]
       </div>
-      <div>/</div>
-      <div>🐵</div>
-      <div id="total-monkeys">9</div>
     </div>
-    <div>Time:</div>
-    <div id="timeLeft"></div>
+    <!-- この中で横に並べる -->
+    <div class="yokonarabi">
+      <div class="category">Score:</div>
+      <div class="yokonarabi category add-margin-left">
+        <div id="total-bananas">0</div>
+        <div>🍌</div>
+        <div class="yokonarabi add-margin-left">
+          &#40;
+          <div id="how-many-left">9</div>
+          &nbsp;monkeys left&#41;
+        </div>
+        <div>/</div>
+        <div>🐵</div>
+        <div id="total-monkeys">9</div>
+      </div>
+    </div>
 
-    <div id="container"></div>
+    <!-- この中で横に並べる -->
+    <div class="yokonarabi category">
+      <div>Time:</div>
+      <div id="timeLeft" class="add-margin-left">10</div>
+      <div>sec</div>
+    </div>
+    <!-- この中で横に並べる -->
+    <div class="yokonarabi category">
+      <div>High Score:</div>
+      <div id="highScore" class="add-margin-left"></div>
+      <div>10</div>
+    </div>
+    <div>
+      <div id="container"></div>
+    </div>
     <script src="eas.js"></script>
   </body>
 </html>
