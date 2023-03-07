@@ -16,8 +16,9 @@ const highScoreEl = document.getElementById("highScore");
 const divCountDisplay = document.getElementById("divCountDisplay");
 let currentDivCountValue = divCountScale.value;
 let timerInterval = 0;
-let currentHS = highScoreEl.textContent;
-// let currentHS = localStorage.getItem("highScore", 0);
+// let currentHS = highScoreEl.textContent;
+let currentHS = localStorage.getItem("highScore") ?? 0;
+highScoreEl.textContent = currentHS;
 // console.log(currentHS)
 let canvasDiv = [];
 
