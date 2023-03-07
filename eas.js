@@ -17,6 +17,8 @@ const divCountDisplay = document.getElementById("divCountDisplay");
 let currentDivCountValue = divCountScale.value;
 let timerInterval = 0;
 let currentHS = highScoreEl.textContent;
+// let currentHS = localStorage.getItem("highScore", 0);
+// console.log(currentHS)
 let canvasDiv = [];
 
 // divCountDisplayにcurrentDivCountValueを表示する
@@ -40,6 +42,8 @@ window.onload = () => {
 
 //　スタートボタンを押した時に実行される
 function createDiv() {
+  // Count down Reset
+  countDownLeft = 10;
   // container内のchild divを消す
   container.textContent = "";
   rowSetting = divCountDisplay.outerText;
@@ -53,35 +57,37 @@ function createDiv() {
 
   // start the countdown timer
   timerInterval = setInterval(countdown, 1000);
+  // check if time is up
+  if (countDownLeft > 0) {
+    // Add event listeners to .canvas elements
+    canvasDiv = document.querySelectorAll(".canvas");
+    canvasDiv.forEach((div) => {
+      div.addEventListener("mousedown", () => {
+        isMouseDown = true;
+        if (isMouseDown === true && div.textContent === "🐒") {
+          div.textContent = "🍌🐒";
+          scoreUpdate();
+        } else if (isMouseDown === true && div.textContent === "🍌🐒") {
+          div.textContent = "🐒";
+          scoreUpdate();
+        }
+      });
+      div.addEventListener("mouseenter", () => {
+        if (isMouseDown === true && div.textContent === "🐒") {
+          div.textContent = "🍌🐒";
+          scoreUpdate();
+        } else if (isMouseDown === true && div.textContent === "🍌🐒") {
+          div.textContent = "🐒";
+          scoreUpdate();
+        }
+      });
 
-  // Add event listeners to .canvas elements
-  canvasDiv = document.querySelectorAll(".canvas");
-  canvasDiv.forEach((div) => {
-    div.addEventListener("mousedown", () => {
-      isMouseDown = true;
-      if (isMouseDown === true && div.textContent === "🐒") {
-        div.textContent = "🍌🐒";
+      div.addEventListener("mouseup", () => {
+        isMouseDown = false;
         scoreUpdate();
-      } else if (isMouseDown === true && div.textContent === "🍌🐒") {
-        div.textContent = "🐒";
-        scoreUpdate();
-      }
+      });
     });
-    div.addEventListener("mouseenter", () => {
-      if (isMouseDown === true && div.textContent === "🐒") {
-        div.textContent = "🍌🐒";
-        scoreUpdate();
-      } else if (isMouseDown === true && div.textContent === "🍌🐒") {
-        div.textContent = "🐒";
-        scoreUpdate();
-      }
-    });
-
-    div.addEventListener("mouseup", () => {
-      isMouseDown = false;
-      scoreUpdate();
-    });
-  });
+  }
 }
 
 const button = document.getElementById("buttonToCreateDivs");
@@ -98,27 +104,42 @@ function countdown() {
   if (countDownLeft <= 0) {
     // stop the timer and display the final score
     clearInterval(timerInterval);
-    scoreUpdate();
+    // scoreUpdate();
+
+    // if (score > currentHS) {
+    //   currentHS = score;
+    //   localStorage.setItem("highScore", currentHS);
+    // }
+
+    // update the high score element
+    //   highScoreEl.textContent = currentHS;
+    // }
 
     if (currentHS < score) {
-      highScoreEl.textContent = score;
+      currentHS = score;
+      localStorage.setItem("highScore", currentHS);
+      highScoreEl.textContent = currentHS;
     }
   }
 }
 
 function scoreUpdate() {
-  score = 0;
-  canvasDiv.forEach((div) => {
-    if (div.textContent === "🍌🐒") {
-      // return the score
-      score++;
-    }
-  });
-  scoreEl.textContent = score;
-  leftMonkeyEl.textContent = totalMonkeyEl.textContent - score;
+  // check if time is up
+  if (countDownLeft > 0) {
+    score = 0;
+    canvasDiv.forEach((div) => {
+      if (div.textContent === "🍌🐒") {
+        // return the score
+        score++;
+      }
+    });
+    scoreEl.textContent = score;
+    leftMonkeyEl.textContent = totalMonkeyEl.textContent - score;
 
-  if (score > highScore) {
-    highScore = score;
-    highScoreEl.textContent = highScore;
+    // if (score > currentHS) {
+    //   currentHS = score;
+    //   localStorage.setItem("highScore", currentHS);
+    //   highScoreEl.textContent = currentHS;
+    // }
   }
 }
