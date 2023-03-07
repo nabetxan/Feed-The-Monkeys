@@ -1,22 +1,33 @@
 let rowSetting = 1;
-let isMousDown = false;
-const container = document.getElementById("container");
+let isMouseDown = false;
 
-// input要素
+// set the initial time and score values
+let countDownLeft = 10;
+let score = 0;
+
+// get the HTML elements
+const container = document.getElementById("container");
 const divCountScale = document.getElementById("divCountScale");
-// input用Scaleから取得する値
-const currentDivCountValue = divCountScale.value;
-// currentValue表示するDiv
+const timerEl = document.getElementById("timeLeft");
+const scoreEl = document.getElementById("total-bananas");
+const leftMonkeyEl = document.getElementById("how-many-left");
+const totalMonkeyEl = document.getElementById("total-monkeys");
+const highScoreEl = document.getElementById("highScore");
 const divCountDisplay = document.getElementById("divCountDisplay");
-// // divCountDisplayにcurrentDivCountValueを表示する
-// divCountDisplay.textContent = currentDivCountValue;
+let currentDivCountValue = divCountScale.value;
+let timerInterval = 0;
+let currentHS = highScoreEl.textContent;
+let canvasDiv = [];
 
 // divCountDisplayにcurrentDivCountValueを表示する
 const setCurrentValue = (val) => {
   divCountDisplay.textContent = val;
+  // Scoreの部分も連動させる
+  totalMonkeyEl.textContent = val * val;
+  leftMonkeyEl.textContent = val * val - scoreEl.textContent;
 };
 
-// inputイベント時に値をセットする関数
+// Scale調整時に値をセットする
 const rangeOnChange = (e) => {
   setCurrentValue(e.target.value);
 };
@@ -27,7 +38,9 @@ window.onload = () => {
   // createDiv(divCountScale.value);
 };
 
+//　スタートボタンを押した時に実行される
 function createDiv() {
+  // container内のchild divを消す
   container.textContent = "";
   rowSetting = divCountDisplay.outerText;
   container.style.setProperty("--get-row", rowSetting);
@@ -38,27 +51,35 @@ function createDiv() {
     container.appendChild(div);
   }
 
+  // start the countdown timer
+  timerInterval = setInterval(countdown, 1000);
+
   // Add event listeners to .canvas elements
-  const canvasDiv = document.querySelectorAll(".canvas");
+  canvasDiv = document.querySelectorAll(".canvas");
   canvasDiv.forEach((div) => {
     div.addEventListener("mousedown", () => {
-      isMousDown = true;
-      if (isMousDown === true && div.textContent === "🐒") {
+      isMouseDown = true;
+      if (isMouseDown === true && div.textContent === "🐒") {
         div.textContent = "🍌🐒";
-      } else if (isMousDown === true && div.textContent === "🍌🐒") {
+        scoreUpdate();
+      } else if (isMouseDown === true && div.textContent === "🍌🐒") {
         div.textContent = "🐒";
+        scoreUpdate();
       }
     });
     div.addEventListener("mouseenter", () => {
-      if (isMousDown === true && div.textContent === "🐒") {
+      if (isMouseDown === true && div.textContent === "🐒") {
         div.textContent = "🍌🐒";
-      } else if (isMousDown === true && div.textContent === "🍌🐒") {
+        scoreUpdate();
+      } else if (isMouseDown === true && div.textContent === "🍌🐒") {
         div.textContent = "🐒";
+        scoreUpdate();
       }
     });
 
     div.addEventListener("mouseup", () => {
-      isMousDown = false;
+      isMouseDown = false;
+      scoreUpdate();
     });
   });
 }
@@ -66,3 +87,38 @@ function createDiv() {
 const button = document.getElementById("buttonToCreateDivs");
 button.addEventListener("click", createDiv);
 // button.addEventListener("click", createDiv, {once: true,});
+
+//adding count down feature
+function countdown() {
+  // decrement the time left and update the timer element
+  countDownLeft--;
+  timerEl.textContent = countDownLeft;
+
+  // check if time is up
+  if (countDownLeft <= 0) {
+    // stop the timer and display the final score
+    clearInterval(timerInterval);
+    scoreUpdate();
+
+    if (currentHS < score) {
+      highScoreEl.textContent = score;
+    }
+  }
+}
+
+function scoreUpdate() {
+  score = 0;
+  canvasDiv.forEach((div) => {
+    if (div.textContent === "🍌🐒") {
+      // return the score
+      score++;
+    }
+  });
+  scoreEl.textContent = score;
+  leftMonkeyEl.textContent = totalMonkeyEl.textContent - score;
+
+  if (score > highScore) {
+    highScore = score;
+    highScoreEl.textContent = highScore;
+  }
+}
